@@ -109,13 +109,16 @@
             </div>
             <!-------------------VISTA FILTROS----------------------->
             <div class="box">
-              <h2
-                class="is-size-3 has-text-weight-bold is-size-5-mobile"
-                style="margin-bottom: 50px"
-              >
-                Filtro
-              </h2>
-
+              <div class="columns  is-vcentered">
+                <div class="column">
+                  <h2 class="is-size-3 has-text-weight-bold is-size-5-mobile">
+                    Filtro
+                  </h2>
+                </div>
+                <div class="column has-text-right">
+                  <button class="button is-ghost" id="oculta-filtros">Ocultar filtros</button>
+                </div>
+              </div>
               <!--FILTRO POR TIPO-->
               <label for="filtrar-tipo" class="has-text-weight-bold"
                 >Tipo</label
@@ -145,7 +148,7 @@
                 >Desde</label
               >
               <div class="select is-fullwidth">
-                <input class="input" type="date" id="filtrar-fecha">
+                <input class="input" type="date" id="filtrar-fecha" />
               </div>
 
               <!--FILTRO ORDENAR POR-->
