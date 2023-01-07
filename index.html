@@ -18,69 +18,163 @@
     <title>Document</title>
   </head>
   <body>
+    <!--------------------------CABECERA---------------------------->
     <section id="cabecera">
-    <nav
-      class="navbar has-background-primary p-3"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-          <img src="assets/wallet-solid.svg" class="icon is-large " />
-          <h1 class="title is-1 has-text-white">AhorrADAs</h1>
-        </a>
+      <nav
+        class="navbar has-background-primary p-3"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#">
+            <img src="assets/wallet-solid.svg" class="icon is-large" />
+            <h1 class="title is-1 has-text-white">AhorrADAs</h1>
+          </a>
 
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
+          <a
+            role="button"
+            class="navbar-burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <span class="icon is-small"><i class="fa-solid fa-scale-balanced"></i></span><strong>Balance</strong>
-              </a>
-              <a class="button is-primary">
-                <span class="icon is-small"><i class="fa-solid fa-tag"></i></span><strong>Categorias</strong>
-              </a>
-              <a class="button is-primary">
-                <span class="icon is-small"><i class="fa-solid fa-chart-line"></i></span><strong>Reportes</strong>
-              </a>
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <span class="icon is-small"
+                    ><i class="fa-solid fa-scale-balanced"></i></span
+                  ><strong>Balance</strong>
+                </a>
+                <a class="button is-primary">
+                  <span class="icon is-small"
+                    ><i class="fa-solid fa-tag"></i></span
+                  ><strong>Categorias</strong>
+                </a>
+                <a class="button is-primary">
+                  <span class="icon is-small"
+                    ><i class="fa-solid fa-chart-line"></i></span
+                  ><strong>Reportes</strong>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <!--------------------------CABECERA---------------------------->
+    <!--------------------------VISTA BALANCE---------------------------->
+    <section id="vista-balance" class="section mt-5">
+      <div class="container">
+        <div class="columns is-multiline">
+          <div
+            class="column is-4-widescreen is-5-desktop is-offset-1-widescreen"
+          >
+            <!-------------------VISTA RESUMEN BALANCE----------------------->
+            <div class="box">
+              <h2
+                class="is-size-3 has-text-weight-bold is-size-5-mobile"
+                style="margin-bottom: 50px"
+              >
+                Balance
+              </h2>
+              <div class="columns mgt-small">
+                <div class="column is-size-4-desktop">Ganancias</div>
+                <div
+                  class="column has-text-primary has-text-right is-size-5-desktop"
+                >
+                  +$0
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-size-4-desktop">Gastos</div>
+                <div
+                  class="column has-text-danger has-text-right is-size-5-desktop"
+                >
+                  +$0
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-size-4-desktop">TOTAL</div>
+                <div class="column has-text-right is-size-5-desktop">+$0</div>
+              </div>
+            </div>
+            <!-------------------VISTA FILTROS----------------------->
+            <div class="box">
+              <h2
+                class="is-size-3 has-text-weight-bold is-size-5-mobile"
+                style="margin-bottom: 50px"
+              >
+                Filtro
+              </h2>
+
+              <!--FILTRO POR TIPO-->
+              <label for="filtrar-tipo" class="has-text-weight-bold"
+                >Tipo</label
+              >
+              <div class="select is-fullwidth">
+                <select id="filtar-tipo">
+                  <option value="filtrar-todos">Todos</option>
+                  <option value="filtrar-gasto">Gasto</option>
+                  <option value="filtrar-ganancia">Ganancia</option>
+                </select>
+              </div>
+              <!--FILTRO POR CATEGORIA-->
+              <label for="filtrar-categoria" class="has-text-weight-bold"
+                >Categoria</label
+              >
+              <div class="select is-fullwidth">
+                <select id="filtar-categoria">
+                  <option value="filtrar-todas">Todas</option>
+                  <option value="filtrar-comida">Comida</option>
+                  <option value="filtrar-servicios">Servicios</option>
+                  <option value="filtrar-salidas">Salidas</option>
+                </select>
+              </div>
+
+              <!----------FILTRO POR FECHA-------->
+              <label for="filtrar-fecha" class="has-text-weight-bold"
+                >Desde</label
+              >
+              <div class="select is-fullwidth">
+                <input class="input" type="date" id="filtrar-fecha">
+              </div>
+
+              <!--FILTRO ORDENAR POR-->
+              <label for="filtrar-orden" class="has-text-weight-bold"
+                >Ordenar por</label
+              >
+              <div class="select is-fullwidth">
+                <select id="filtar-corden">
+                  <option value="filtrar-mas-reciente">Mas reciente</option>
+                  <option value="filtrar-menos-reciente">Menos reciente</option>
+                  <option value="filtrar-mayor-monto">Mayor monto</option>
+                  <option value="filtrar-menor-monto">Menor monto</option>
+                </select>
+              </div>
+            </div>
+
+            <!-------------------VISTA OPERACIONES----------------------->
+          </div>
+          <div class="column is-7-widescreen is-8-desktop">
+            <div class="box">
+              <h2 class="is-size-4 has-text-weight-bold is-size-6-mobile">
+                Operaciones
+              </h2>
             </div>
           </div>
         </div>
       </div>
-    </nav>
-</section>
-<section id="vista-balance" class="section mt-5">
-    <div class="container">
-        <div class="columns is-multiline">
-            <div class="column">
-                <div class="box">
-                    <h2>Balance</h2>
-                </div>
-                <div class="box">
-                    <h2>Filtro</h2>
-                </div>
-            </div>
-            <div class="column">
-                <div class="box">
-                    <h2>Operaciones</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+    <!--------------------------VISTA BALANCE---------------------------->
 
     <script src="main.js"></script>
   </body>
