@@ -51,7 +51,7 @@
 
   <!--------------------------CABECERA---------------------------->
   <!--------------------------VISTA BALANCE---------------------------->
-  <section id="vista-balance" class="section mt-5 is-hidden">
+  <section id="vista-balance" class="section mt-5">
     <div class="container">
       <div class="columns is-multiline">
         <div class="column is-4-widescreen is-5-desktop is-offset-1-widescreen">
@@ -142,7 +142,9 @@
                 <button class="button is-primary">+ Nueva operacion</button>
               </div>
             </div>
-            <div>
+
+            <!--SUB VISTA SIN OPERACIONES-->
+            <div class="" id="vista-sin-operaciones">
               <figure class="image is-100x100 mb-4">
                 <img src="assets/undraw_data_re_80ws.svg" />
               </figure>
@@ -152,6 +154,17 @@
               <p class="has-text-centered">
                 Cambia los filtros o agrega operaciones
               </p>
+            </div>
+            <!--SUB VISTA CON OPERACIONES-->
+            <div id="vista-con-operaciones">
+              <div class="columns is-hidden is-hidden-mobile">
+                <div class="column has-text-weight-semibold">Descripcion</div>
+                <div class="column has-text-weight-semibold">Categoria</div>
+                <div class="column has-text-weight-semibold">Fecha</div>
+                <div class="column has-text-weight-semibold">Monto</div>
+                <div class="column has-text-weight-semibold">Acciones</div>
+              </div>
+              <div id="descripcion-operaciones-ingresadas"></div>
             </div>
           </div>
         </div>
@@ -273,7 +286,7 @@
   </section>
   <!---------------------FIN VISTA AGREGAR CATEGORIAS------------------------>
   <!----------------------VISTA EDITAR CATEGORIA----------------------------->
-  <section class="section">
+  <section class="section is-hidden">
     <div class="container">
       <div class="columns is-multiline is-centered">
         <div class="column is-10">
