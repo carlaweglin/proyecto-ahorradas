@@ -72,7 +72,7 @@
 
     <!--------------------------CABECERA---------------------------->
     <!--------------------------VISTA BALANCE---------------------------->
-    <section id="vista-balance" class="section mt-5">
+    <section id="vista-balance" class="section mt-5 is-hidden">
       <div class="container">
         <div class="columns is-multiline">
           <div
@@ -200,6 +200,99 @@
     </section>
     <!--------------------------FIN VISTA BALANCE---------------------------->
     <!---------------------VISTA AGREGANDO OPERACION------------------------->
+    <section class="section mt-5">
+      <div class="container">
+        <div class="columns is-multiline is-centered">
+          <div class="column is-10">
+            <div class="box">
+              <h2
+                class="is-size-3 has-text-weight-bold"
+                style="margin-bottom: 50px"
+              >
+                Nueva operación
+              </h2>
+              <label
+                for="input-operacion-descripcion"
+                class="has-text-weight-bold is-size-5"
+                >Descripcion</label
+              >
+              <div class="control">
+                <input
+                  id="input-operacion-descripcion"
+                  class="input is-hovered mt-3 mb-5"
+                  type="text"
+                  placeholder="Ingresa una descripcion"
+                />
+              </div>
+              <label
+                for="input-operacion-monto"
+                class="has-text-weight-bold is-size-5"
+                >Monto</label
+              >
+              <div class="control">
+                <input
+                  id="input-operacion-monto"
+                  class="input is-hovered mt-3 mb-5"
+                  type="text"
+                  placeholder="Ingresa monto de la operacion"
+                />
+              </div>
+              <label
+                for="input-operacion-tipo"
+                class="has-text-weight-bold is-size-5"
+                >Tipo</label
+              >
+              <div class="select is-fullwidth is-hovered mt-3 mb-5">
+                <select id="input-operacion-tipo">
+                  <option value="input-operacion-tipo-gasto">Gasto</option>
+                  <option value="input-operacion-tipo-ganancia">
+                    Ganancia
+                  </option>
+                </select>
+              </div>
+              <label
+                for="input-operacion-categoria"
+                class="has-text-weight-bold is-size-5"
+                >Categoria</label
+              >
+              <div class="select is-fullwidth is-hovered mt-3 mb-5">
+                <select id="input-operacion-categoria">
+                  <option value="input-operacion-categoria-comida">
+                    Comida
+                  </option>
+                  <option value="input-operacion-categoria-servicios">
+                    Servicios
+                  </option>
+                  <option value="input-operacion-categoria-salidas">
+                    Salidas
+                  </option>
+                </select>
+              </div>
+              <label for="filtrar-fecha-operacion" class="has-text-weight-bold"
+                >Desde</label
+              >
+              <div class="select is-fullwidth mt-3 mb-5">
+                <input
+                  class="input is-hovered mt-3 mb-5"
+                  type="date"
+                  id="filtrar-fecha-operacion"
+                />
+              </div>
+              <div class="buttons are-medium mt-6 is-right">
+                <button class="button is-danger is-outlined">
+                  <span>Cancelar</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-times"></i>
+                  </span>
+                </button>
+                <button class="button is-success is-outlined">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!---------------------FIN AGREGANDO OPERACION------------------------->
     <script src="main.js"></script>
   </body>
 </html>
