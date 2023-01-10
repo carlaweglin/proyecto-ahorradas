@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>Document</title>
-  </head>
-  <body>
-    <nav
-      class="navbar has-background-primary is-fixed-top p-3"
-      role="navigation"
-      aria-label="main navigation"
-    >
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Document</title>
+</head>
+
+<body>
+  <!--------------------------CABECERA---------------------------->
+  <section id="cabecera">
+    <nav class="navbar has-background-primary p-3" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="#">
-          <img src="assets/wallet-solid.svg" class="icon is-large " />
+          <img src="assets/wallet-solid.svg" class="icon is-large" />
           <h1 class="title is-1 has-text-white">AhorrADAs</h1>
         </a>
 
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -60,7 +47,282 @@
         </div>
       </div>
     </nav>
+  </section>
 
-    <script src="main.js"></script>
-  </body>
+  <!--------------------------CABECERA---------------------------->
+  <!--------------------------VISTA BALANCE---------------------------->
+  <section id="vista-balance" class="section mt-5">
+    <div class="container">
+      <div class="columns is-multiline">
+        <div class="column is-4-widescreen is-5-desktop is-offset-1-widescreen">
+          <!-------------------VISTA RESUMEN BALANCE----------------------->
+          <div class="box">
+            <h2 class="is-size-3 has-text-weight-bold is-size-5-mobile" style="margin-bottom: 50px">
+              Balance
+            </h2>
+            <div class="columns mgt-small">
+              <div class="column is-size-4-desktop">Ganancias</div>
+              <div class="column has-text-primary has-text-right is-size-5-desktop">
+                +$0
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-size-4-desktop">Gastos</div>
+              <div class="column has-text-danger has-text-right is-size-5-desktop">
+                +$0
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-size-4-desktop">TOTAL</div>
+              <div class="column has-text-right is-size-5-desktop">+$0</div>
+            </div>
+          </div>
+          <!-------------------VISTA FILTROS----------------------->
+          <div class="box">
+            <div class="columns is-vcentered">
+              <div class="column">
+                <h2 class="is-size-3 has-text-weight-bold is-size-5-mobile">
+                  Filtro
+                </h2>
+              </div>
+              <div class="column has-text-right">
+                <button class="button is-ghost" id="oculta-filtros">
+                  Ocultar filtros
+                </button>
+              </div>
+            </div>
+            <!--FILTRO POR TIPO-->
+            <div class="field">
+              <label for="filtrar-tipo" class="has-text-weight-bold">Tipo</label>
+              <div class="select is-fullwidth">
+                <select id="filtar-tipo">
+                  <option value="filtrar-todos">Todos</option>
+                  <option value="filtrar-gasto">Gasto</option>
+                  <option value="filtrar-ganancia">Ganancia</option>
+                </select>
+              </div>
+            </div>
+            <!--FILTRO POR CATEGORIA-->
+            <div class="field">
+              <label for="filtrar-categoria" class="has-text-weight-bold">Categoria</label>
+              <div class="select is-fullwidth">
+                <select id="filtar-categoria">
+                  <option value="filtrar-todas">Todas</option>
+                  <option value="filtrar-comida">Comida</option>
+                  <option value="filtrar-servicios">Servicios</option>
+                  <option value="filtrar-salidas">Salidas</option>
+                </select>
+              </div>
+            </div>
+
+            <!----------FILTRO POR FECHA-------->
+            <div class="field">
+              <label for="filtrar-fecha" class="has-text-weight-bold">Desde</label>
+              <div class="select is-fullwidth">
+                <input class="input" type="date" id="filtrar-fecha" />
+              </div>
+            </div>
+
+            <!--FILTRO ORDENAR POR-->
+            <div class="field">
+              <label for="filtrar-orden" class="has-text-weight-bold">Ordenar por</label>
+              <div class="select is-fullwidth">
+                <select id="filtar-corden">
+                  <option value="filtrar-mas-reciente">Mas reciente</option>
+                  <option value="filtrar-menos-reciente">Menos reciente</option>
+                  <option value="filtrar-mayor-monto">Mayor monto</option>
+                  <option value="filtrar-menor-monto">Menor monto</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-------------------VISTA OPERACIONES/SIN OPERACIONES----------------------->
+        <div class="column is-7-widescreen is-8-desktop">
+          <div class="box">
+            <div class="columns is-vcentered">
+              <div class="column">
+                <h2 class="is-size-4 has-text-weight-bold is-size-6-mobile">
+                  Operaciones
+                </h2>
+              </div>
+              <div class="column has-text-right has-text-left-mobile">
+                <button class="button is-primary">+ Nueva operacion</button>
+              </div>
+            </div>
+
+            <!--SUB VISTA SIN OPERACIONES-->
+            <div class="" id="vista-sin-operaciones">
+              <figure class="image is-100x100 mb-4">
+                <img src="assets/undraw_data_re_80ws.svg" />
+              </figure>
+              <h3 class="has-text-centered has-text-weight-medium is-size-3-desktop is-size-5-mobile mb-4">
+                Sin resultados
+              </h3>
+              <p class="has-text-centered">
+                Cambia los filtros o agrega operaciones
+              </p>
+            </div>
+            <!--SUB VISTA CON OPERACIONES-->
+            <div id="vista-con-operaciones">
+              <div class="columns is-hidden is-hidden-mobile">
+                <div class="column has-text-weight-semibold">Descripcion</div>
+                <div class="column has-text-weight-semibold">Categoria</div>
+                <div class="column has-text-weight-semibold">Fecha</div>
+                <div class="column has-text-weight-semibold">Monto</div>
+                <div class="column has-text-weight-semibold">Acciones</div>
+              </div>
+              <div id="descripcion-operaciones-ingresadas"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--------------------------FIN VISTA BALANCE---------------------------->
+  <!---------------------VISTA AGREGANDO OPERACION------------------------->
+  <section class="section mt-5 is-hidden">
+    <div class="container">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-10">
+          <div class="box">
+            <h2 class="is-size-3 has-text-weight-bold" style="margin-bottom: 50px">
+              Nueva operación
+            </h2>
+            <label for="input-operacion-descripcion" class="has-text-weight-bold is-size-5">Descripcion</label>
+            <div class="control">
+              <input id="input-operacion-descripcion" class="input is-hovered mt-3 mb-5" type="text"
+                placeholder="Ingresa una descripcion" />
+            </div>
+            <label for="input-operacion-monto" class="has-text-weight-bold is-size-5">Monto</label>
+            <div class="control">
+              <input id="input-operacion-monto" class="input is-hovered mt-3 mb-5" type="text"
+                placeholder="Ingresa monto de la operacion" />
+            </div>
+            <label for="input-operacion-tipo" class="has-text-weight-bold is-size-5">Tipo</label>
+            <div class="select is-fullwidth is-hovered mt-3 mb-5">
+              <select id="input-operacion-tipo">
+                <option value="input-operacion-tipo-gasto">Gasto</option>
+                <option value="input-operacion-tipo-ganancia">
+                  Ganancia
+                </option>
+              </select>
+            </div>
+            <label for="input-operacion-categoria" class="has-text-weight-bold is-size-5">Categoria</label>
+            <div class="select is-fullwidth is-hovered mt-3 mb-5">
+              <select id="input-operacion-categoria">
+                <option value="input-operacion-categoria-comida">
+                  Comida
+                </option>
+                <option value="input-operacion-categoria-servicios">
+                  Servicios
+                </option>
+                <option value="input-operacion-categoria-salidas">
+                  Salidas
+                </option>
+              </select>
+            </div>
+            <label for="filtrar-fecha-operacion" class="has-text-weight-bold">Desde</label>
+            <div class="select is-fullwidth mt-3 mb-5">
+              <input class="input is-hovered mt-3 mb-5" type="date" id="filtrar-fecha-operacion" />
+            </div>
+            <div class="buttons are-medium mt-6 is-right">
+              <button class="button is-danger is-outlined">
+                <span>Cancelar</span>
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+              </button>
+              <button class="button is-success is-outlined">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---------------------FIN AGREGANDO OPERACION------------------------->
+  <!---------------------VISTA AGREGAR CATEGORIAS------------------------>
+  <section class="section is-hidden">
+    <div class="container">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-10">
+          <div class="box">
+            <h2 class="is-size-3 has-text-weight-bold" style="margin-bottom: 50px">
+              Categorías
+            </h2>
+            <label for="input-agregar-categoria" class="has-text-weight-bold is-size-5">Nombre</label>
+            <div class="field has-addons mt-3 mb-5">
+              <div class="control is-expanded">
+                <input class="input" type="text" placeholder="Agregar categoía">
+              </div>
+              <div class="control">
+                <a class="button is-success">
+                  Agregar
+                </a>
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-primary is-light is-fullwidth">Comida</span>
+                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light">Eliminar</a>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-primary is-light is-fullwidth">Servicios</span>
+                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light">Eliminar</a>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-multiline">
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-primary is-light is-fullwidth">Salidas</span>
+                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light">Eliminar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <!---------------------FIN VISTA AGREGAR CATEGORIAS------------------------>
+  <!----------------------VISTA EDITAR CATEGORIA----------------------------->
+  <section class="section is-hidden">
+    <div class="container">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-10">
+          <div class="box">
+            <h2 class="is-size-3 has-text-weight-bold" style="margin-bottom: 50px">
+              Editar categoría
+            </h2>
+            <label for="input-agregar-categoria" class="has-text-weight-bold is-size-5">Nombre</label>
+            <div class="field has-addons mt-3 mb-3">
+              <div class="control is-expanded">
+                <input class="input is-fullwidth" type="text">
+              </div>
+            </div>
+            <div class="buttons are-medium mt-6 is-right">
+              <button class="button is-danger is-outlined">
+                <span>Cancelar</span>
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+              </button>
+              <button class="button is-success is-outlined">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="main.js"></script>
+</body>
+
 </html>
