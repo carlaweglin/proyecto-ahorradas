@@ -33,13 +33,13 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
+              <a class="button is-primary" id="btn-vista-balance">
                 <span class="icon is-small"><i class="fa-solid fa-scale-balanced"></i></span><strong>Balance</strong>
               </a>
-              <a class="button is-primary">
+              <a class="button is-primary" id="btn-vista-categorias">
                 <span class="icon is-small"><i class="fa-solid fa-tag"></i></span><strong>Categorias</strong>
               </a>
-              <a class="button is-primary">
+              <a class="button is-primary" id="btn-vista-reportes">
                 <span class="icon is-small"><i class="fa-solid fa-chart-line"></i></span><strong>Reportes</strong>
               </a>
             </div>
@@ -51,7 +51,7 @@
 
   <!--------------------------CABECERA---------------------------->
   <!--------------------------VISTA BALANCE---------------------------->
-  <section id="vista-balance" class="section mt-5 is-hidden">
+  <section id="vista-balance" class="section mt-5 vista">
     <div class="container">
       <div class="columns is-multiline">
         <div class="column is-4-widescreen is-5-desktop is-offset-1-widescreen">
@@ -180,7 +180,7 @@
     </div>
   </section>
   <!--------------------------FIN VISTA BALANCE---------------------------->
-  <!---------------------VISTA AGREGANDO OPERACION------------------------->
+  <!-----------------------------------VISTA AGREGANDO OPERACION----------------------------------->
   <section class="section mt-5 is-hidden">
     <div class="container">
       <div class="columns is-multiline is-centered">
@@ -242,7 +242,7 @@
   </section>
   <!---------------------FIN AGREGANDO OPERACION------------------------->
   <!---------------------VISTA AGREGAR CATEGORIAS------------------------>
-  <section class="section is-hidden">
+  <section class="section vista is-hidden" id="vista-categorias">
     <div class="container">
       <div class="columns is-multiline is-centered">
         <div class="column is-10">
@@ -327,7 +327,7 @@
 
   <!---VISTA REPORTES/OPERACIONES INSUFICIENTES--->
 
-  <section class="section">
+  <section class="section vista is-hidden" id="vista-reportes">
     <div class="columns is-multiline is-centered">
       <div class="column is-5-desktop">
         <div class="box">
