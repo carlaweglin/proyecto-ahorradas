@@ -13,7 +13,9 @@ let btn_vista_categorias = $('#btn-vista-categorias');
 let btn_vista_reportes = $('#btn-vista-reportes');
 let btn_oculta_filtros = $('#oculta-filtros');
 let conteiner_filtros = $('#conteiner-filtros');
-
+let btn_nueva_operacion = $('#btn-nueva-operacion');
+let seccion_agregar_operacion = $('#seccion-agregar-operacion');
+let btn_cancelar_operacion = $('#btn-cancelar-operacion');
 
 
 //eventos
@@ -23,12 +25,14 @@ let conteiner_filtros = $('#conteiner-filtros');
 btn_vista_categorias.addEventListener("click", () => {
     vista_balance.classList.add("is-hidden");
     vista_reportes.classList.add("is-hidden");
+    seccion_agregar_operacion.classList.add("is-hidden");
     vista_categorias.classList.remove("is-hidden");
 });
 
 btn_vista_reportes.addEventListener("click", () => {
     vista_balance.classList.add("is-hidden");
     vista_categorias.classList.add("is-hidden");
+    seccion_agregar_operacion.classList.add("is-hidden");
     vista_reportes.classList.remove("is-hidden");
 });
 
@@ -42,3 +46,12 @@ btn_oculta_filtros.addEventListener("click", () => {
     conteiner_filtros.classList.toggle("is-hidden");
 });
 
+btn_nueva_operacion.addEventListener("click", () => {
+    vista_balance.classList.add("is-hidden");
+    seccion_agregar_operacion.classList.remove("is-hidden");
+});
+
+btn_cancelar_operacion.addEventListener("click", () => {
+    vista_balance.classList.remove("is-hidden");
+    seccion_agregar_operacion.classList.add("is-hidden");
+});

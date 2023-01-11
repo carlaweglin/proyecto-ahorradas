@@ -149,7 +149,7 @@
                 </h2>
               </div>
               <div class="column has-text-right has-text-left-mobile">
-                <button class="button is-primary">+ Nueva operacion</button>
+                <button class="button is-primary" id="btn-nueva-operacion">+ Nueva operacion</button>
               </div>
             </div>
 
@@ -183,7 +183,7 @@
   </section>
   <!--------------------------FIN VISTA BALANCE---------------------------->
   <!-----------------------------------VISTA AGREGANDO OPERACION----------------------------------->
-  <section class="section mt-5 is-hidden">
+  <section id="seccion-agregar-operacion" class="section mt-5 vista is-hidden">
     <div class="container">
       <div class="columns is-multiline is-centered">
         <div class="column is-10">
@@ -229,7 +229,7 @@
               <input class="input is-hovered mt-3 mb-5" type="date" id="filtrar-fecha-operacion" />
             </div>
             <div class="buttons are-medium mt-6 is-right">
-              <button class="button is-danger is-outlined">
+              <button class="button is-danger is-outlined" id="btn-cancelar-operacion">
                 <span>Cancelar</span>
                 <span class="icon is-small">
                   <i class="fas fa-times"></i>
