@@ -1,7 +1,25 @@
 //funciones
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
+const generaVistaOperaciones = (operacion_confirmada) => {
+    for (const operacion of operacion_confirmada) {
+        $vista_sin_operaciones.classList.add("is-hidden");
+        seccion_agregar_operacion.classList.add("is-hidden");
+        vista_balance.classList.remove("is-hidden");
+        $vista_con_operaciones.classList.remove("is-hidden");
+        $contenedor_vista_operaciones.innerHTML += `
+        <div class="columns">
+                <div class="column has-text-weight-semibold">${operacion.descripcion}</div>
+                <div class="column has-text-weight-semibold">${operacion.categoria}</div>
+                <div class="column has-text-weight-semibold">${operacion.fecha}</div>
+                <div class="column has-text-weight-semibold">$ ${operacion.monto}</div>
+                <div class="column has-text-weight-semibold"><a class="tag is-info is-light btn-editar-categoria">Editar</a>
+                <a class="tag is-info is-light">Eliminar</a></div>
+              </div>
+        `
 
+    }
+}
 
 //variables
 
@@ -87,24 +105,9 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     console.log('funciona');
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
-    
-    for (const operacion of operacion_confirmada) {
-        $vista_sin_operaciones.classList.add("is-hidden");
-        seccion_agregar_operacion.classList.add("is-hidden");
-        vista_balance.classList.remove("is-hidden");
-        $vista_con_operaciones.classList.remove("is-hidden");
-        $contenedor_vista_operaciones.innerHTML += `
-        <div class="columns">
-                <div class="column has-text-weight-semibold">${operacion.descripcion}</div>
-                <div class="column has-text-weight-semibold">${operacion.categoria}</div>
-                <div class="column has-text-weight-semibold">${operacion.fecha}</div>
-                <div class="column has-text-weight-semibold">$ ${operacion.monto}</div>
-                <div class="column has-text-weight-semibold"><a class="tag is-info is-light btn-editar-categoria">Editar</a>
-                <a class="tag is-info is-light">Eliminar</a></div>
-              </div>
-        `
 
-    }
+    generaVistaOperaciones(operacion_confirmada);
 });
+
 
 
