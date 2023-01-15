@@ -1,6 +1,8 @@
 //funciones
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
+
+// generar operacion //
 const generaVistaOperaciones = (operacion_confirmada) => {
     $contenedor_operaciones.innerHTML = "";
     for (const operacion of operacion_confirmada) {
@@ -21,6 +23,22 @@ const generaVistaOperaciones = (operacion_confirmada) => {
 
     }
 }
+// ganancia, gasto y total en vista balance // 
+const generaTotalesBalance = (operacion_confirmada) => {
+    let gasto = 0
+    let ganancia = 0
+    for (const operacion of operacion_confirmada) {
+        if (operacion.tipo === 'ganancia') {
+            ganancia = ganancia + operacion.monto
+        } else {
+            gasto = gasto + operacion.monto
+        }
+        let total = ganancia - gasto
+        $balance_ganancias.innerText = `+$${ganancia}`
+        $balance_gastos.innerText = `-$${gasto}`
+        $total_balance.innerText = `+$${total}` 
+    }
+}
 
 
 //variables
@@ -36,9 +54,6 @@ let conteiner_filtros = $('#conteiner-filtros');
 let btn_nueva_operacion = $('#btn-nueva-operacion');
 let seccion_agregar_operacion = $('#seccion-agregar-operacion');
 let btn_cancelar_operacion = $('#btn-cancelar-operacion');
-//elementos para editar categorias, vista y botones ?
-//let $seccion_editar_categoria = $('#editar-categoria');
-//let $$btn_editar_categoria = $$('.btn-editar-categoria');
 let $input_operacion_descripcion = $('#input-operacion-descripcion');
 let $input_operacion_monto = $('#input-operacion-monto');
 let $input_operacion_tipo = $('#input-operacion-tipo');
@@ -49,6 +64,9 @@ let $vista_sin_operaciones = $('#vista-sin-operaciones');
 let $contenedor_vista_operaciones = $('#contenedor-vista-operaciones');
 let $vista_con_operaciones = $('#vista-con-operaciones');
 let $contenedor_operaciones = $('#contenedor-operaciones');
+let $balance_ganancias = $('#balance-ganancias');
+let $balance_gastos = $('#balance-gastos');
+let $total_balance = $('#total-balance');
 let operacion_a_confirmar = {
     descripcion: "",
     monto: 0,
@@ -58,6 +76,7 @@ let operacion_a_confirmar = {
 };
 let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
+
 
 
 //eventos
@@ -98,6 +117,8 @@ btn_cancelar_operacion.addEventListener("click", () => {
     seccion_agregar_operacion.classList.add("is-hidden");
 });
 
+// agregar operaciones //
+
 $btn_confirmar_operacion.addEventListener("click", () => {
     let ingresarOperacion = { ...operacion_a_confirmar };
     ingresarOperacion.descripcion = $input_operacion_descripcion.value;
@@ -105,12 +126,17 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     ingresarOperacion.tipo = $input_operacion_tipo.value;
     ingresarOperacion.categoria = $input_operacion_categoria.value;
     ingresarOperacion.fecha = $input_fecha_operacion.value;
-    console.log('funciona');
+
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
 
     generaVistaOperaciones(operacion_confirmada);
+    generaTotalesBalance(operacion_confirmada);
 });
 
 generaVistaOperaciones(operacion_confirmada);
+generaTotalesBalance(operacion_confirmada);
+
+
+
 
