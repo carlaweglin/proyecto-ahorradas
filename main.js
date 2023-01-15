@@ -25,6 +25,9 @@ let $input_operacion_tipo = $('#input-operacion-tipo');
 let $input_operacion_categoria = $('#input-operacion-categoria');
 let $input_fecha_operacion = $('#input-fecha-operacion');
 let $btn_confirmar_operacion = $('#btn-confirmar-operacion');
+let $vista_sin_operaciones = $('#vista-sin-operaciones');
+let $contenedor_vista_operaciones = $('#contenedor-vista-operaciones');
+let $vista_con_operaciones = $('#vista-con-operaciones');
 let operacion_a_confirmar = {
     descripcion: "",
     monto: 0,
@@ -81,8 +84,27 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     ingresarOperacion.tipo = $input_operacion_tipo.value;
     ingresarOperacion.categoria = $input_operacion_categoria.value;
     ingresarOperacion.fecha = $input_fecha_operacion.value;
-
+    console.log('funciona');
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
     
+    for (const operacion of operacion_confirmada) {
+        $vista_sin_operaciones.classList.add("is-hidden");
+        seccion_agregar_operacion.classList.add("is-hidden");
+        vista_balance.classList.remove("is-hidden");
+        $vista_con_operaciones.classList.remove("is-hidden");
+        $contenedor_vista_operaciones.innerHTML += `
+        <div class="columns">
+                <div class="column has-text-weight-semibold">${operacion.descripcion}</div>
+                <div class="column has-text-weight-semibold">${operacion.categoria}</div>
+                <div class="column has-text-weight-semibold">${operacion.fecha}</div>
+                <div class="column has-text-weight-semibold">$ ${operacion.monto}</div>
+                <div class="column has-text-weight-semibold"><a class="tag is-info is-light btn-editar-categoria">Editar</a>
+                <a class="tag is-info is-light">Eliminar</a></div>
+              </div>
+        `
+
+    }
 });
+
+
