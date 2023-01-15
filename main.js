@@ -16,6 +16,24 @@ let conteiner_filtros = $('#conteiner-filtros');
 let btn_nueva_operacion = $('#btn-nueva-operacion');
 let seccion_agregar_operacion = $('#seccion-agregar-operacion');
 let btn_cancelar_operacion = $('#btn-cancelar-operacion');
+//elementos para editar categorias, vista y botones ?
+//let $seccion_editar_categoria = $('#editar-categoria');
+//let $$btn_editar_categoria = $$('.btn-editar-categoria');
+let $input_operacion_descripcion = $('#input-operacion-descripcion');
+let $input_operacion_monto = $('#input-operacion-monto');
+let $input_operacion_tipo = $('#input-operacion-tipo');
+let $input_operacion_categoria = $('#input-operacion-categoria');
+let $input_fecha_operacion = $('#input-fecha-operacion');
+let $btn_confirmar_operacion = $('#btn-confirmar-operacion');
+let operacion_a_confirmar = {
+    descripcion: "",
+    monto: 0,
+    tipo: "",
+    categoria: "",
+    fecha: ""
+};
+let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
+let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
 
 
 //eventos
@@ -54,4 +72,17 @@ btn_nueva_operacion.addEventListener("click", () => {
 btn_cancelar_operacion.addEventListener("click", () => {
     vista_balance.classList.remove("is-hidden");
     seccion_agregar_operacion.classList.add("is-hidden");
+});
+
+$btn_confirmar_operacion.addEventListener("click", () => {
+    let ingresarOperacion = {...operacion_a_confirmar};
+    ingresarOperacion.descripcion = $input_operacion_descripcion.value;
+    ingresarOperacion.monto = Number($input_operacion_monto.value);
+    ingresarOperacion.tipo = $input_operacion_tipo.value;
+    ingresarOperacion.categoria = $input_operacion_categoria.value;
+    ingresarOperacion.fecha = $input_fecha_operacion.value;
+
+    operacion_confirmada.push(ingresarOperacion);
+    localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
+    
 });

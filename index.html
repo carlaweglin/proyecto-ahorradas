@@ -204,8 +204,8 @@
             <label for="input-operacion-tipo" class="has-text-weight-bold is-size-5">Tipo</label>
             <div class="select is-fullwidth is-hovered mt-3 mb-5">
               <select id="input-operacion-tipo">
-                <option value="input-operacion-tipo-gasto">Gasto</option>
-                <option value="input-operacion-tipo-ganancia">
+                <option value="gasto">Gasto</option>
+                <option value="ganancia">
                   Ganancia
                 </option>
               </select>
@@ -213,20 +213,21 @@
             <label for="input-operacion-categoria" class="has-text-weight-bold is-size-5">Categoria</label>
             <div class="select is-fullwidth is-hovered mt-3 mb-5">
               <select id="input-operacion-categoria">
-                <option value="input-operacion-categoria-comida">
+                <option value="comida">
                   Comida
                 </option>
-                <option value="input-operacion-categoria-servicios">
+                <option value="servicios">
                   Servicios
                 </option>
-                <option value="input-operacion-categoria-salidas">
+                <option value="
+                salidas">
                   Salidas
                 </option>
               </select>
             </div>
             <label for="filtrar-fecha-operacion" class="has-text-weight-bold">Desde</label>
             <div class="select is-fullwidth mt-3 mb-5">
-              <input class="input is-hovered mt-3 mb-5" type="date" id="filtrar-fecha-operacion" />
+              <input class="input is-hovered mt-3 mb-5" type="date" id="input-fecha-operacion" />
             </div>
             <div class="buttons are-medium mt-6 is-right">
               <button class="button is-danger is-outlined" id="btn-cancelar-operacion">
@@ -235,7 +236,7 @@
                   <i class="fas fa-times"></i>
                 </span>
               </button>
-              <button class="button is-success is-outlined">Agregar</button>
+              <button id="btn-confirmar-operacion" class="button is-success is-outlined">Agregar</button>
             </div>
           </div>
         </div>
@@ -267,7 +268,7 @@
               <div class="control">
                 <div class="tags has-addons">
                   <span class="tag is-primary is-light is-fullwidth">Comida</span>
-                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light btn-editar-categoria">Editar</a>
                   <a class="tag is-info is-light">Eliminar</a>
                 </div>
               </div>
@@ -276,7 +277,7 @@
               <div class="control">
                 <div class="tags has-addons">
                   <span class="tag is-primary is-light is-fullwidth">Servicios</span>
-                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light btn-editar-categoria">Editar</a>
                   <a class="tag is-info is-light">Eliminar</a>
                 </div>
               </div>
@@ -285,7 +286,7 @@
               <div class="control">
                 <div class="tags has-addons">
                   <span class="tag is-primary is-light is-fullwidth">Salidas</span>
-                  <a class="tag is-info is-light">Editar</a>
+                  <a class="tag is-info is-light btn-editar-categoria">Editar</a>
                   <a class="tag is-info is-light">Eliminar</a>
                 </div>
               </div>
@@ -296,7 +297,7 @@
   </section>
   <!---------------------FIN VISTA AGREGAR CATEGORIAS------------------------>
   <!----------------------VISTA EDITAR CATEGORIA----------------------------->
-  <section class="section is-hidden">
+  <section class="section is-hidden" id="editar-categoria">
     <div class="container">
       <div class="columns is-multiline is-centered">
         <div class="column is-10">
@@ -317,7 +318,7 @@
                   <i class="fas fa-times"></i>
                 </span>
               </button>
-              <button class="button is-success is-outlined">Agregar</button>
+              <button class="button is-success is-outlined">Editar</button>
             </div>
           </div>
         </div>
