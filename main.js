@@ -22,6 +22,7 @@ const generaVistaOperaciones = (operacion_confirmada) => {
     }
 }
 
+
 //variables
 
 let vista_balance = $('#vista-balance');
@@ -111,5 +112,5 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     generaVistaOperaciones(operacion_confirmada);
 });
 
-
+generaVistaOperaciones(operacion_confirmada);
 
