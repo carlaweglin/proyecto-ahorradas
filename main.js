@@ -2,12 +2,13 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 const generaVistaOperaciones = (operacion_confirmada) => {
+    $contenedor_operaciones.innerHTML = "";
     for (const operacion of operacion_confirmada) {
         $vista_sin_operaciones.classList.add("is-hidden");
         seccion_agregar_operacion.classList.add("is-hidden");
         vista_balance.classList.remove("is-hidden");
         $vista_con_operaciones.classList.remove("is-hidden");
-        $contenedor_vista_operaciones.innerHTML += `
+        $contenedor_operaciones.innerHTML += `
         <div class="columns">
                 <div class="column has-text-weight-semibold">${operacion.descripcion}</div>
                 <div class="column has-text-weight-semibold">${operacion.categoria}</div>
@@ -46,6 +47,7 @@ let $btn_confirmar_operacion = $('#btn-confirmar-operacion');
 let $vista_sin_operaciones = $('#vista-sin-operaciones');
 let $contenedor_vista_operaciones = $('#contenedor-vista-operaciones');
 let $vista_con_operaciones = $('#vista-con-operaciones');
+let $contenedor_operaciones = $('#contenedor-operaciones');
 let operacion_a_confirmar = {
     descripcion: "",
     monto: 0,
@@ -96,7 +98,7 @@ btn_cancelar_operacion.addEventListener("click", () => {
 });
 
 $btn_confirmar_operacion.addEventListener("click", () => {
-    let ingresarOperacion = {...operacion_a_confirmar};
+    let ingresarOperacion = { ...operacion_a_confirmar };
     ingresarOperacion.descripcion = $input_operacion_descripcion.value;
     ingresarOperacion.monto = Number($input_operacion_monto.value);
     ingresarOperacion.tipo = $input_operacion_tipo.value;
