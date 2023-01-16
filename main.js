@@ -1,4 +1,4 @@
-//funciones
+//----------------------------------------FUNCIONES---------------------------------------------//
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
@@ -41,7 +41,7 @@ const generaTotalesBalance = (operacion_confirmada) => {
 }
 
 
-//variables
+//---------------------------------------VARIABLES-----------------------------------------------//
 
 let vista_balance = $('#vista-balance');
 let vista_categorias = $('#vista-categorias');
@@ -72,16 +72,17 @@ let operacion_a_confirmar = {
     monto: 0,
     tipo: "",
     categoria: "",
-    fecha: ""
+    fecha: "",
+    id: ""
 };
 let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
 
 
 
-//eventos
+//------------------------------------------------EVENTOS-------------------------------------------//
 
-//------------ botones vistas---------------//
+// botones vistas//
 
 btn_vista_categorias.addEventListener("click", () => {
     vista_balance.classList.add("is-hidden");
@@ -126,6 +127,7 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     ingresarOperacion.tipo = $input_operacion_tipo.value;
     ingresarOperacion.categoria = $input_operacion_categoria.value;
     ingresarOperacion.fecha = $input_fecha_operacion.value;
+    ingresarOperacion.id = self.crypto.randomUUID();
 
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
