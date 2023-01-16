@@ -2,6 +2,17 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+function eliminarOperacion(id) {
+
+    let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
+    operacion_confirmada = operacionConfirmadaAux
+    console.log("ope:",operacionConfirmadaAux);
+    localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
+    generaVistaOperaciones(operacion_confirmada)
+    generaTotalesBalance(operacion_confirmada)
+    
+}
+
 // generar operacion //
 const generaVistaOperaciones = (operacion_confirmada) => {
     $contenedor_operaciones.innerHTML = "";
@@ -11,13 +22,13 @@ const generaVistaOperaciones = (operacion_confirmada) => {
         vista_balance.classList.remove("is-hidden");
         $vista_con_operaciones.classList.remove("is-hidden");
         $contenedor_operaciones.innerHTML += `
-        <div class="columns">
+        <div class="columns" id="${operacion.id}">
                 <div class="column has-text-weight-semibold">${operacion.descripcion}</div>
                 <div class="column has-text-weight-semibold">${operacion.categoria}</div>
                 <div class="column has-text-weight-semibold">${operacion.fecha}</div>
                 <div class="column has-text-weight-semibold">$ ${operacion.monto}</div>
                 <div class="column has-text-weight-semibold"><a class="tag is-info is-light btn-editar-categoria">Editar</a>
-                <a class="tag is-info is-light">Eliminar</a></div>
+                <a class="tag is-info is-light" onClick='eliminarOperacion("${operacion.id}")'>Eliminar</a></div>
               </div>
         `
 
@@ -25,8 +36,14 @@ const generaVistaOperaciones = (operacion_confirmada) => {
 }
 // ganancia, gasto y total en vista balance // 
 const generaTotalesBalance = (operacion_confirmada) => {
+    console.log("operacion1",operacion_confirmada);
     let gasto = 0
     let ganancia = 0
+    if (operacion_confirmada.length === 0){
+        $balance_ganancias.innerText = '+$0'
+        $balance_gastos.innerText = '-$0'
+        $total_balance.innerText = '+$0'
+    }
     for (const operacion of operacion_confirmada) {
         if (operacion.tipo === 'ganancia') {
             ganancia = ganancia + operacion.monto
@@ -36,9 +53,10 @@ const generaTotalesBalance = (operacion_confirmada) => {
         let total = ganancia - gasto
         $balance_ganancias.innerText = `+$${ganancia}`
         $balance_gastos.innerText = `-$${gasto}`
-        $total_balance.innerText = `+$${total}` 
+        $total_balance.innerText = `$${total}` 
     }
-}
+
+ }
 
 
 //---------------------------------------VARIABLES-----------------------------------------------//
@@ -77,6 +95,7 @@ let operacion_a_confirmar = {
 };
 let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
+console.log("operacion_confirmada",operacion_confirmada);
 
 
 
