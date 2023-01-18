@@ -10,7 +10,7 @@ function eliminarOperacion(id) {
     generaVistaOperaciones(operacion_confirmada)
     generaTotalesBalance(operacion_confirmada)
     operacion_confirmada = [] && $vista_sin_operaciones.classList.remove("is-hidden") &
-    $vista_con_operaciones.classList.add("is-hidden");
+        $vista_con_operaciones.classList.add("is-hidden");
 
 }
 
@@ -80,7 +80,7 @@ const generaTotalesBalance = (operacion_confirmada) => {
         } else {
             gasto = gasto + operacion.monto
         }
-        console.log("gasto:",gasto);
+        console.log("gasto:", gasto);
         let total = ganancia - gasto
         $balance_ganancias.innerText = `+$${ganancia}`
         $balance_gastos.innerText = `-$${gasto}`
@@ -89,6 +89,52 @@ const generaTotalesBalance = (operacion_confirmada) => {
 
 }
 
+const crearCategorias = (nombreCategoria) => {
+    return { id: self.crypto.randomUUID(), nombre: nombreCategoria }
+}
+
+const inicializarCategorias = () => {
+    const categorias = [
+        'Comida',
+        'Servicios',
+        'Salidas',
+        'Educación',
+        'Transporte',
+        'Trabajo',
+    ]
+    let categoriasAux = categorias.map((categoria) => crearCategorias(categoria))
+    localStorage.setItem('categorias_confirmadas', JSON.stringify(categoriasAux));
+    return categoriasAux
+
+}
+inicializarCategorias();
+
+const crearVistaCategorias = (categorias) => {
+    $contenedor_categorias.innerHTML = "";
+    for (const categoria of categorias) {
+        $contenedor_categorias.innerHTML += `
+        <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+            <div class="tags has-addons" id=${categoria.id}>
+                <span class="tag is-primary is-light is-fullwidth">${categoria.nombre}</span>
+                <a class="tag is-info is-light btn-editar-categoria">Editar</a>
+                <a class="tag is-info is-light btn-eliminar-categoria">Eliminar</a>
+            </div>
+        </div>
+    </div>`
+    }
+
+
+    /*<div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+            <div class="tags has-addons">
+                <span class="tag is-primary is-light is-fullwidth">Comida</span>
+                <a class="tag is-info is-light btn-editar-categoria">Editar</a>
+                <a class="tag is-info is-light">Eliminar</a>
+            </div>
+        </div>
+    </div>*/
+}
 
 //---------------------------------------VARIABLES-----------------------------------------------//
 
@@ -126,6 +172,8 @@ let operacion_a_confirmar = {
 };
 let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
+let categoriasEnLocal = JSON.parse(localStorage.getItem('categorias_confirmadas'));
+let categorias = categoriasEnLocal;
 let $input_operacion_editar_descripcion = $('#input-operacion-editar-descripcion');
 let $input_operacion_editar_monto = $('#input-operacion-editar-monto');
 let $input_operacion_editar_tipo = $('#input-operacion-editar-tipo');
@@ -133,7 +181,10 @@ let $input_operacion_editar_categoria = $('#input-operacion-editar-categoria');
 let $input_fecha_editar_operacion = $('#input-fecha-editar-operacion');
 let $btn_cancelar_edicion_operacion = $('#btn-cancelar-edicion-operacion');
 let $btn_editar_operacion = $('#btn-editar-operacion');
-let $seccion_editar_operacion = $('#seccion-editar-operacion'); 
+let $seccion_editar_operacion = $('#seccion-editar-operacion');
+let $contenedor_categorias = $('#contenedor-categorias');
+
+//llamar inicializaCategorias
 
 //------------------------------------------------EVENTOS-------------------------------------------//
 
@@ -144,6 +195,8 @@ btn_vista_categorias.addEventListener("click", () => {
     vista_reportes.classList.add("is-hidden");
     seccion_agregar_operacion.classList.add("is-hidden");
     vista_categorias.classList.remove("is-hidden");
+    //agregar genera vista editar categorias
+    crearVistaCategorias(categorias);
 });
 
 btn_vista_reportes.addEventListener("click", () => {
@@ -157,6 +210,7 @@ btn_vista_balance.addEventListener("click", () => {
     vista_reportes.classList.add("is-hidden");
     vista_categorias.classList.add("is-hidden");
     vista_balance.classList.remove("is-hidden");
+    
 });
 
 btn_oculta_filtros.addEventListener("click", () => {
