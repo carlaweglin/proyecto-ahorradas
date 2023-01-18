@@ -87,7 +87,7 @@
               </div>
               <div class="column has-text-right">
                 <button class="button is-ghost" id="oculta-filtros">
-                  Ocultar filtros
+                  Ocultar/mostrar filtros
                 </button>
               </div>
             </div>
@@ -248,6 +248,70 @@
     </div>
   </section>
   <!---------------------FIN AGREGANDO OPERACION------------------------->
+
+  <!---------------------EDITAR OPERACION--------------------------------->
+  <section id="seccion-editar-operacion" class="section mt-5 vista is-hidden">
+    <div class="container">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-10">
+          <div class="box">
+            <h2 class="is-size-3 has-text-weight-bold" style="margin-bottom: 50px">
+              Editar operación
+            </h2>
+            <label for="input-operacion-descripcion" class="has-text-weight-bold is-size-5">Descripcion</label>
+            <div class="control">
+              <input id="input-operacion-editar-descripcion" class="input is-hovered mt-3 mb-5" type="text"
+                placeholder="Ingresa una descripcion" />
+            </div>
+            <label for="input-operacion-monto" class="has-text-weight-bold is-size-5">Monto</label>
+            <div class="control">
+              <input id="input-operacion-editar-monto" class="input is-hovered mt-3 mb-5" type="text"
+                placeholder="Ingresa monto de la operacion" />
+            </div>
+            <label for="input-operacion-tipo" class="has-text-weight-bold is-size-5">Tipo</label>
+            <div class="select is-fullwidth is-hovered mt-3 mb-5">
+              <select id="input-operacion-editar-tipo">
+                <option value="gasto">Gasto</option>
+                <option value="ganancia">
+                  Ganancia
+                </option>
+              </select>
+            </div>
+            <label for="input-operacion-categoria" class="has-text-weight-bold is-size-5">Categoria</label>
+            <div class="select is-fullwidth is-hovered mt-3 mb-5">
+              <select id="input-operacion-editar-categoria">
+                <option value="comida">
+                  Comida
+                </option>
+                <option value="servicios">
+                  Servicios
+                </option>
+                <option value="
+                salidas">
+                  Salidas
+                </option>
+              </select>
+            </div>
+            <label for="filtrar-fecha-operacion" class="has-text-weight-bold">Desde</label>
+            <div class="select is-fullwidth mt-3 mb-5">
+              <input class="input is-hovered mt-3 mb-5" type="date" id="input-fecha-editar-operacion" />
+            </div>
+            <div class="buttons are-medium mt-6 is-right">
+              <button class="button is-danger is-outlined" id="btn-cancelar-edicion-operacion">
+                <span>Cancelar</span>
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+              </button>
+              <button id="btn-editar-operacion" class="button is-success is-outlined">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---------------------FIN EDITAR OPERACION----------------------------->
+
   <!---------------------VISTA AGREGAR CATEGORIAS------------------------>
   <section class="section vista is-hidden" id="vista-categorias">
     <div class="container">

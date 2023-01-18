@@ -5,12 +5,41 @@ const $$ = (selector) => document.querySelectorAll(selector);
 function eliminarOperacion(id) {
 
     let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
-    operacion_confirmada = operacionConfirmadaAux
-    console.log("ope:",operacionConfirmadaAux);
+    operacion_confirmada = operacionConfirmadaAux;
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
     generaVistaOperaciones(operacion_confirmada)
     generaTotalesBalance(operacion_confirmada)
-    
+
+}
+
+function editarOperacion(id) {
+    vista_balance.classList.add("is-hidden");
+    $seccion_editar_operacion.classList.remove("is-hidden");
+    let operacionParaEditar = operacion_confirmada.find((op) => op.id === id);
+    console.log(operacionParaEditar);
+    $input_operacion_editar_descripcion.value = operacionParaEditar.descripcion;
+    $input_operacion_editar_categoria.value = operacionParaEditar.categoria;
+    $input_operacion_editar_tipo.value = operacionParaEditar.tipo;
+    $input_operacion_editar_monto.value = operacionParaEditar.monto;
+    $input_fecha_editar_operacion.value = operacionParaEditar.fecha;
+    $btn_editar_operacion.addEventListener("click", () => {
+        let nuevoObjeto = {
+            descripcion: $input_operacion_editar_descripcion.value,
+            monto: Number($input_operacion_editar_monto.value),
+            tipo: $input_operacion_editar_tipo.value,
+            categoria: $input_operacion_editar_categoria.value,
+            fecha: $input_fecha_editar_operacion.value,
+            id: id
+
+        }
+        let index = operacion_confirmada.findIndex((operacion) => operacion.id === id);
+        operacion_confirmada[index] = nuevoObjeto;
+        localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
+        generaVistaOperaciones(operacion_confirmada);
+        generaTotalesBalance(operacion_confirmada);
+        vista_balance.classList.remove("is-hidden");
+        $seccion_editar_operacion.classList.add("is-hidden");
+    })
 }
 
 // generar operacion //
@@ -27,7 +56,7 @@ const generaVistaOperaciones = (operacion_confirmada) => {
                 <div class="column has-text-weight-semibold">${operacion.categoria}</div>
                 <div class="column has-text-weight-semibold">${operacion.fecha}</div>
                 <div class="column has-text-weight-semibold">$ ${operacion.monto}</div>
-                <div class="column has-text-weight-semibold"><a class="tag is-info is-light btn-editar-categoria">Editar</a>
+                <div class="column has-text-weight-semibold"><a class="tag is-info is-light" onClick='editarOperacion("${operacion.id}")'>Editar</a>
                 <a class="tag is-info is-light" onClick='eliminarOperacion("${operacion.id}")'>Eliminar</a></div>
               </div>
         `
@@ -36,10 +65,9 @@ const generaVistaOperaciones = (operacion_confirmada) => {
 }
 // ganancia, gasto y total en vista balance // 
 const generaTotalesBalance = (operacion_confirmada) => {
-    console.log("operacion1",operacion_confirmada);
     let gasto = 0
     let ganancia = 0
-    if (operacion_confirmada.length === 0){
+    if (operacion_confirmada.length === 0) {
         $balance_ganancias.innerText = '+$0'
         $balance_gastos.innerText = '-$0'
         $total_balance.innerText = '+$0'
@@ -50,13 +78,14 @@ const generaTotalesBalance = (operacion_confirmada) => {
         } else {
             gasto = gasto + operacion.monto
         }
+        console.log("gasto:",gasto);
         let total = ganancia - gasto
         $balance_ganancias.innerText = `+$${ganancia}`
         $balance_gastos.innerText = `-$${gasto}`
-        $total_balance.innerText = `$${total}` 
+        $total_balance.innerText = `$${total}`
     }
 
- }
+}
 
 
 //---------------------------------------VARIABLES-----------------------------------------------//
@@ -95,8 +124,14 @@ let operacion_a_confirmar = {
 };
 let datosEnLocalstorage = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 let operacion_confirmada = datosEnLocalstorage ? datosEnLocalstorage : [];
-console.log("operacion_confirmada",operacion_confirmada);
-
+let $input_operacion_editar_descripcion = $('#input-operacion-editar-descripcion');
+let $input_operacion_editar_monto = $('#input-operacion-editar-monto');
+let $input_operacion_editar_tipo = $('#input-operacion-editar-tipo');
+let $input_operacion_editar_categoria = $('#input-operacion-editar-categoria');
+let $input_fecha_editar_operacion = $('#input-fecha-editar-operacion');
+let $btn_cancelar_edicion_operacion = $('#btn-cancelar-edicion-operacion');
+let $btn_editar_operacion = $('#btn-editar-operacion');
+let $seccion_editar_operacion = $('#seccion-editar-operacion'); // boton para hacer push de la edicion de la operacion
 
 
 //------------------------------------------------EVENTOS-------------------------------------------//
@@ -158,6 +193,10 @@ $btn_confirmar_operacion.addEventListener("click", () => {
 generaVistaOperaciones(operacion_confirmada);
 generaTotalesBalance(operacion_confirmada);
 
+// boton para cancelar edicion de operacion // 
 
-
+$btn_cancelar_edicion_operacion.addEventListener("click", () => {
+    vista_balance.classList.remove("is-hidden");
+    $seccion_editar_operacion.classList.add("is-hidden");
+});
 
