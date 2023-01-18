@@ -9,6 +9,8 @@ function eliminarOperacion(id) {
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
     generaVistaOperaciones(operacion_confirmada)
     generaTotalesBalance(operacion_confirmada)
+    operacion_confirmada = [] && $vista_sin_operaciones.classList.remove("is-hidden") &
+    $vista_con_operaciones.classList.add("is-hidden");
 
 }
 
@@ -131,8 +133,7 @@ let $input_operacion_editar_categoria = $('#input-operacion-editar-categoria');
 let $input_fecha_editar_operacion = $('#input-fecha-editar-operacion');
 let $btn_cancelar_edicion_operacion = $('#btn-cancelar-edicion-operacion');
 let $btn_editar_operacion = $('#btn-editar-operacion');
-let $seccion_editar_operacion = $('#seccion-editar-operacion'); // boton para hacer push de la edicion de la operacion
-
+let $seccion_editar_operacion = $('#seccion-editar-operacion'); 
 
 //------------------------------------------------EVENTOS-------------------------------------------//
 
