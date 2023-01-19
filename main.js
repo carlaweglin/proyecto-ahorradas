@@ -113,6 +113,7 @@ const inicializarCategorias = () => {
 }
 inicializarCategorias();
 
+
 // eliminar categoria //
 
 function eliminarCategoria(id) {
@@ -140,10 +141,22 @@ const crearVistaCategorias = (categorias) => {
     }
 }
 
+// actualiza categorias en nueva operacion // 
+
 const actualizaCategoriasNuevaOperacion = (categorias) => {
     $input_operacion_categoria.innerHTML = "";
     for (const categoria of categorias) {
         $input_operacion_categoria.innerHTML += `
+        <option value="${categoria.nombre}">${categoria.nombre}</option>`
+    }
+}
+
+// actualiza categorias en filtros // 
+
+const actualizaCategoriasFiltro = (categorias) => {
+    $filtar_categoria.innerHTML = '<option value="todas">Todas</option>';
+    for (const categoria of categorias) {
+        $filtar_categoria.innerHTML += `
         <option value="${categoria.nombre}">${categoria.nombre}</option>`
     }
 }
@@ -195,6 +208,8 @@ let $btn_cancelar_edicion_operacion = $('#btn-cancelar-edicion-operacion');
 let $btn_editar_operacion = $('#btn-editar-operacion');
 let $seccion_editar_operacion = $('#seccion-editar-operacion');
 let $contenedor_categorias = $('#contenedor-categorias');
+let $filtar_categoria = $('#filtar-categoria');
+actualizaCategoriasFiltro(categorias);
 
 //llamar inicializaCategorias
 
@@ -222,6 +237,7 @@ btn_vista_balance.addEventListener("click", () => {
     vista_reportes.classList.add("is-hidden");
     vista_categorias.classList.add("is-hidden");
     vista_balance.classList.remove("is-hidden");
+    actualizaCategoriasFiltro(categorias);
 
 });
 
