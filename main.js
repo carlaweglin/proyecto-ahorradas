@@ -2,6 +2,8 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+// eliminar operacion//
+
 function eliminarOperacion(id) {
 
     let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
@@ -13,6 +15,8 @@ function eliminarOperacion(id) {
         $vista_con_operaciones.classList.add("is-hidden");
 
 }
+
+// editar operacion //
 
 function editarOperacion(id) {
     vista_balance.classList.add("is-hidden");
@@ -88,7 +92,7 @@ const generaTotalesBalance = (operacion_confirmada) => {
     }
 
 }
-
+// crea categorias al iniciar // 
 const crearCategorias = (nombreCategoria) => {
     return { id: self.crypto.randomUUID(), nombre: nombreCategoria }
 }
@@ -109,6 +113,17 @@ const inicializarCategorias = () => {
 }
 inicializarCategorias();
 
+// eliminar categoria //
+
+function eliminarCategoria(id) {
+    let categoriaSelecionada = categorias.filter((categoria) => categoria.id !== id)
+    categorias = categoriaSelecionada;
+    localStorage.setItem('categorias_confirmadas', JSON.stringify(categorias));
+    crearVistaCategorias(categorias);
+}
+
+// crea vista categorias // 
+
 const crearVistaCategorias = (categorias) => {
     $contenedor_categorias.innerHTML = "";
     for (const categoria of categorias) {
@@ -117,23 +132,12 @@ const crearVistaCategorias = (categorias) => {
         <div class="control">
             <div class="tags has-addons" id=${categoria.id}>
                 <span class="tag is-primary is-light is-fullwidth">${categoria.nombre}</span>
-                <a class="tag is-info is-light btn-editar-categoria">Editar</a>
-                <a class="tag is-info is-light btn-eliminar-categoria">Eliminar</a>
+                <a class="tag is-info is-light" onClick='editarCategoria("${categoria.id}")'>Editar</a>
+                <a class="tag is-info is-light" onClick='eliminarCategoria("${categoria.id}")'>Eliminar</a>
             </div>
         </div>
     </div>`
     }
-
-
-    /*<div class="field is-grouped is-grouped-multiline">
-        <div class="control">
-            <div class="tags has-addons">
-                <span class="tag is-primary is-light is-fullwidth">Comida</span>
-                <a class="tag is-info is-light btn-editar-categoria">Editar</a>
-                <a class="tag is-info is-light">Eliminar</a>
-            </div>
-        </div>
-    </div>*/
 }
 
 //---------------------------------------VARIABLES-----------------------------------------------//
@@ -210,7 +214,7 @@ btn_vista_balance.addEventListener("click", () => {
     vista_reportes.classList.add("is-hidden");
     vista_categorias.classList.add("is-hidden");
     vista_balance.classList.remove("is-hidden");
-    
+
 });
 
 btn_oculta_filtros.addEventListener("click", () => {
