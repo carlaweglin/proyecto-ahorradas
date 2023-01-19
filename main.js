@@ -140,6 +140,14 @@ const crearVistaCategorias = (categorias) => {
     }
 }
 
+const actualizaCategoriasNuevaOperacion = (categorias) => {
+    $input_operacion_categoria.innerHTML = "";
+    for (const categoria of categorias) {
+        $input_operacion_categoria.innerHTML += `
+        <option value="${categoria.nombre}">${categoria.nombre}</option>`
+    }
+}
+
 //---------------------------------------VARIABLES-----------------------------------------------//
 
 let vista_balance = $('#vista-balance');
@@ -224,6 +232,8 @@ btn_oculta_filtros.addEventListener("click", () => {
 btn_nueva_operacion.addEventListener("click", () => {
     vista_balance.classList.add("is-hidden");
     seccion_agregar_operacion.classList.remove("is-hidden");
+    actualizaCategoriasNuevaOperacion(categorias);
+
 });
 
 btn_cancelar_operacion.addEventListener("click", () => {
