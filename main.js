@@ -5,15 +5,15 @@ const $$ = (selector) => document.querySelectorAll(selector);
 // eliminar operacion//
 
 function eliminarOperacion(id) {
-
     let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
     operacion_confirmada = operacionConfirmadaAux;
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
     generaVistaOperaciones(operacion_confirmada)
     generaTotalesBalance(operacion_confirmada)
-    operacion_confirmada = [] && $vista_sin_operaciones.classList.remove("is-hidden") &
-        $vista_con_operaciones.classList.add("is-hidden");
-
+    if (operacion_confirmada.length === 0) {
+        $vista_sin_operaciones.classList.remove("is-hidden")
+        $vista_con_operaciones.classList.add("is-hidden")
+    }
 }
 
 // editar operacion //
@@ -22,7 +22,7 @@ function editarOperacion(id) {
     vista_balance.classList.add("is-hidden");
     $seccion_editar_operacion.classList.remove("is-hidden");
     let operacionParaEditar = operacion_confirmada.find((op) => op.id === id);
-    console.log(operacionParaEditar);
+    
     $input_operacion_editar_descripcion.value = operacionParaEditar.descripcion;
     $input_operacion_editar_categoria.value = operacionParaEditar.categoria;
     $input_operacion_editar_tipo.value = operacionParaEditar.tipo;
@@ -84,7 +84,7 @@ const generaTotalesBalance = (operacion_confirmada) => {
         } else {
             gasto = gasto + operacion.monto
         }
-        console.log("gasto:", gasto);
+        
         let total = ganancia - gasto
         $balance_ganancias.innerText = `+$${ganancia}`
         $balance_gastos.innerText = `-$${gasto}`
@@ -161,6 +161,20 @@ const actualizaCategoriasFiltro = (categorias) => {
     }
 }
 
+// filtra por tipo // 
+
+const filtrarOperaciones = () => {
+    let operaciones_filtradas = operacion_confirmada;
+    if ($filtar_tipo.value === 'gasto' || $filtar_tipo.value === 'ganancia' ) {
+       operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.tipo === $filtar_tipo.value) 
+    }
+    
+    generaVistaOperaciones(operaciones_filtradas)
+    
+}
+
+
+
 //---------------------------------------VARIABLES-----------------------------------------------//
 
 let vista_balance = $('#vista-balance');
@@ -210,8 +224,9 @@ let $seccion_editar_operacion = $('#seccion-editar-operacion');
 let $contenedor_categorias = $('#contenedor-categorias');
 let $filtar_categoria = $('#filtar-categoria');
 actualizaCategoriasFiltro(categorias);
-
-//llamar inicializaCategorias
+//filtros de operaciones//
+let $filtar_tipo = $('#filtar-tipo');
+console.log("operacion_confirmada:",operacion_confirmada);
 
 //------------------------------------------------EVENTOS-------------------------------------------//
 
@@ -267,7 +282,6 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     ingresarOperacion.categoria = $input_operacion_categoria.value;
     ingresarOperacion.fecha = $input_fecha_operacion.value;
     ingresarOperacion.id = self.crypto.randomUUID();
-
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
 
@@ -285,3 +299,9 @@ $btn_cancelar_edicion_operacion.addEventListener("click", () => {
     $seccion_editar_operacion.classList.add("is-hidden");
 });
 
+// filtros: filtrar por tipo //
+
+$filtar_tipo.addEventListener('change', () => {
+    filtrarOperaciones()
+    //generaTotalesBalance(operaciones_filtradas); OPERACION FILTRADA NO ESTA DEFINIDO ?
+});
