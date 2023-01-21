@@ -123,6 +123,10 @@ function eliminarCategoria(id) {
     crearVistaCategorias(categorias);
 }
 
+// editar categoria // ---------- hacer ---------------
+
+
+
 // crea vista categorias // 
 
 const crearVistaCategorias = (categorias) => {
@@ -162,18 +166,38 @@ const actualizaCategoriasFiltro = (categorias) => {
 }
 
 // filtra por tipo // 
-
-const filtrarOperaciones = () => {
-    let operaciones_filtradas = operacion_confirmada;
-    if ($filtar_tipo.value === 'gasto' || $filtar_tipo.value === 'ganancia' ) {
-       operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.tipo === $filtar_tipo.value) 
-    }
+let operaciones_filtradas;
+let operaciones_sin_filtrar = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
+const filtrarOperacionesTipo = () => {
     
+    if ($filtrar_tipo.value === 'gasto' || $filtrar_tipo.value === 'ganancia' ) {
+       operaciones_filtradas = operaciones_sin_filtrar.filter((operacion) => operacion.tipo === $filtrar_tipo.value) 
+    }
+     if ($filtrar_tipo.value === 'todos'){
+         operaciones_filtradas = operaciones_sin_filtrar 
+     }
+    localStorage.setItem('operaciones_filtradas', JSON.stringify(operaciones_filtradas));
     generaVistaOperaciones(operaciones_filtradas)
     
 }
 
+//filtra por categoria // 
 
+const filtrarOperacionesCategoria = () => {
+    operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
+    operacion_confirmada.forEach(operacion => {
+        if ($filtar_categoria.value === operacion.categoria){
+            operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.categoria === $filtar_categoria.value)
+        } 
+        
+       
+    } )
+    generaVistaOperaciones(operaciones_filtradas);
+    generaTotalesBalance(operaciones_filtradas);
+    
+   
+    
+}
 
 //---------------------------------------VARIABLES-----------------------------------------------//
 
@@ -225,8 +249,10 @@ let $contenedor_categorias = $('#contenedor-categorias');
 let $filtar_categoria = $('#filtar-categoria');
 actualizaCategoriasFiltro(categorias);
 //filtros de operaciones//
-let $filtar_tipo = $('#filtar-tipo');
-console.log("operacion_confirmada:",operacion_confirmada);
+let $filtrar_tipo = $('#filtrar-tipo');
+let operaciones_gasto =  operacion_confirmada.filter((operacion) => operacion.tipo === 'gasto');
+let operaciones_ganancia =  operacion_confirmada.filter((operacion) => operacion.tipo === 'ganancia');
+
 
 //------------------------------------------------EVENTOS-------------------------------------------//
 
@@ -301,7 +327,13 @@ $btn_cancelar_edicion_operacion.addEventListener("click", () => {
 
 // filtros: filtrar por tipo //
 
-$filtar_tipo.addEventListener('change', () => {
-    filtrarOperaciones()
+$filtrar_tipo.addEventListener('change', () => {
+    filtrarOperacionesTipo()
     //generaTotalesBalance(operaciones_filtradas); OPERACION FILTRADA NO ESTA DEFINIDO ?
 });
+
+$filtar_categoria.addEventListener('change', () => {
+    filtrarOperacionesCategoria()
+    
+    console.log('funciona');
+})

@@ -96,7 +96,7 @@
               <div class="field">
                 <label for="filtrar-tipo" class="has-text-weight-bold">Tipo</label>
                 <div class="select is-fullwidth">
-                  <select id="filtar-tipo">
+                  <select id="filtrar-tipo">
                     <option value="todos">Todos</option>
                     <option value="gasto">Gasto</option>
                     <option value="ganancia">Ganancia</option>
@@ -355,19 +355,18 @@
     </div>
   </section>
 
-  <!--------------------VISTA REPORTES-------------------->
+  <!----------------------------------VISTA REPORTES--------------------------------------->
 
   <!---VISTA REPORTES/OPERACIONES INSUFICIENTES--->
 
   <section class="section vista is-hidden" id="vista-reportes">
-    <div class="columns is-multiline is-centered">
-      <div class="column is-5-desktop">
+    <div class="columns is-centered">
+      <div class="column is-6-desktop">
         <div class="box">
           <h2 class="is-size-2 has-text-weight-bold is-size-6-mobile">
             Reportes
           </h2>
-          <div id="reportes-sin-operaciones">
-
+          <div>
             <figure class="image mb-4">
               <img src="assets/undraw_personal_goals_re_iow7.svg" />
             </figure>
@@ -378,6 +377,59 @@
               Prueba agregando mas operaciones
             </p>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!---VISTA REPORTES/CON OPERACIONES--->
+
+  <section class="section vista is-hidden" id="vista-reportes-con-operaciones">
+    <div class="columns is-centered">
+      <div class="column is-6-desktop">
+        <div class="box">
+          <h2 class="is-size-2 has-text-weight-bold is-size-6-mobile mb-5">
+            Reportes
+          </h2>
+          <div class="contenedor-resumen mb-7">
+            <div class="mb-10">
+              <h3 class="is-size-4 has-text-weight-bold mb-5">Resumen</h3>
+            </div>
+            <div id="reporte-categ-mayor-ganancia" class="columns">
+              <div class="column has-text-weight-semibold">Categoria con mayor ganancia</div>
+            </div>
+            <div id="reporte-categ-mayor-gasto" class="columns">
+              <div class="column has-text-weight-semibold">Categoria con mayor gasto</div>
+            </div>
+            <div id="reporte-mes-mayor-ganancia" class="columns">
+              <div class="column has-text-weight-semibold">Mes con mayor ganancia</div>
+            </div>
+            <div id="reporte-mes-mayor-gasto" class="columns">
+              <div class="column has-text-weight-semibold">Mes con mayor gasto</div>
+            </div>
+          </div>
+          <div class="contenedor-totales-categoria mt-6">
+            <div class="mb-5">
+              <h3 class="is-size-4 has-text-weight-bold ">Totales por categoria</h3>
+            </div>
+            <div id="reporte-totales-categoria" class="columns">
+              <div class="column has-text-weight-semibold">Categoria</div>
+              <div class="column has-text-weight-semibold">Ganancia</div>
+              <div class="column has-text-weight-semibold">Gasto</div>
+              <div class="column has-text-weight-semibold">Balance</div>
+            </div>
+          </div>
+          <div class="contenedor-totales-mes mt-6">
+            <div class="mb-5">
+              <h3 class="is-size-4 has-text-weight-bold">Totales por mes</h3>
+            </div>
+            <div id="reporte-totales-mes" class="columns">
+              <div class="column has-text-weight-semibold">Categoria</div>
+              <div class="column has-text-weight-semibold">Ganancia</div>
+              <div class="column has-text-weight-semibold">Gasto</div>
+              <div class="column has-text-weight-semibold">Balance</div>
+            </div>
           </div>
         </div>
       </div>
