@@ -6,8 +6,11 @@ const $$ = (selector) => document.querySelectorAll(selector);
 
 function eliminarOperacion(id) {
     let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
+    let operacionFiltradaAux = operaciones_filtradas.filter((operacion) => operacion.id !== id)
     operacion_confirmada = operacionConfirmadaAux;
+    operaciones_filtradas = operacionFiltradaAux
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
+    localStorage.setItem('operaciones_filtradas', JSON.stringify(operaciones_filtradas));
     generaVistaOperaciones(operacion_confirmada)
     generaTotalesBalance(operacion_confirmada)
     if (operacion_confirmada.length === 0) {
@@ -22,7 +25,8 @@ function editarOperacion(id) {
     vista_balance.classList.add("is-hidden");
     $seccion_editar_operacion.classList.remove("is-hidden");
     let operacionParaEditar = operacion_confirmada.find((op) => op.id === id);
-    
+    actualizaCategoriasEditarOperacion();
+
     $input_operacion_editar_descripcion.value = operacionParaEditar.descripcion;
     $input_operacion_editar_categoria.value = operacionParaEditar.categoria;
     $input_operacion_editar_tipo.value = operacionParaEditar.tipo;
@@ -84,7 +88,7 @@ const generaTotalesBalance = (operacion_confirmada) => {
         } else {
             gasto = gasto + operacion.monto
         }
-        
+
         let total = ganancia - gasto
         $balance_ganancias.innerText = `+$${ganancia}`
         $balance_gastos.innerText = `-$${gasto}`
@@ -165,20 +169,31 @@ const actualizaCategoriasFiltro = (categorias) => {
     }
 }
 
+// actualiza categorias en editar operacion // 
+
+const actualizaCategoriasEditarOperacion = () => {
+    let categorias = JSON.parse(localStorage.getItem('categorias_confirmadas'));
+    $input_operacion_editar_categoria.innerHTML = '';
+    for (const categoria of categorias) {
+        $input_operacion_editar_categoria.innerHTML += `
+        <option value="${categoria.nombre}">${categoria.nombre}</option>`
+    }
+}
+
 // filtra por tipo // 
 let operaciones_filtradas;
 let operaciones_sin_filtrar = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 const filtrarOperacionesTipo = () => {
-    
-    if ($filtrar_tipo.value === 'gasto' || $filtrar_tipo.value === 'ganancia' ) {
-       operaciones_filtradas = operaciones_sin_filtrar.filter((operacion) => operacion.tipo === $filtrar_tipo.value) 
+
+    if ($filtrar_tipo.value === 'gasto' || $filtrar_tipo.value === 'ganancia') {
+        operaciones_filtradas = operaciones_sin_filtrar.filter((operacion) => operacion.tipo === $filtrar_tipo.value)
     }
-     if ($filtrar_tipo.value === 'todos'){
-         operaciones_filtradas = operaciones_sin_filtrar 
-     }
+    if ($filtrar_tipo.value === 'todos') {
+        operaciones_filtradas = operaciones_sin_filtrar
+    }
     localStorage.setItem('operaciones_filtradas', JSON.stringify(operaciones_filtradas));
     generaVistaOperaciones(operaciones_filtradas)
-    
+
 }
 
 //filtra por categoria // 
@@ -186,17 +201,59 @@ const filtrarOperacionesTipo = () => {
 const filtrarOperacionesCategoria = () => {
     operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
     operacion_confirmada.forEach(operacion => {
-        if ($filtar_categoria.value === operacion.categoria){
+        if ($filtar_categoria.value === operacion.categoria) {
             operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.categoria === $filtar_categoria.value)
-        } 
-        
-       
-    } )
+        }
+
+
+    })
     generaVistaOperaciones(operaciones_filtradas);
     generaTotalesBalance(operaciones_filtradas);
-    
-   
-    
+
+
+}
+
+const ordenaOperaciones = () => {
+    operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
+    switch ($filtrar_orden.value) {
+        case "menor-monto":
+            operaciones_filtradas.sort(function (a, b) {
+                return a.monto - b.monto;
+            });
+            operaciones_sin_filtrar.sort(function (a, b) {
+                return a.monto - b.monto;
+            });
+            break;
+        case "mayor-monto":
+            operaciones_filtradas.sort(function (a, b) {
+                return b.monto - a.monto;
+            });
+            operaciones_sin_filtrar.sort(function (a, b) {
+                return b.monto - a.monto;
+            });
+            break;
+        case "mas-reciente":
+            operaciones_filtradas.sort(function (a, b) {
+                const fechaA = new Date(a.fecha)
+                const fechaB = new Date(b.fecha)
+                return fechaA - fechaB;
+            });
+        case "mas-reciente":
+            operaciones_filtradas.sort(function (a, b) {
+                const fechaA = new Date(a.fecha)
+                const fechaB = new Date(b.fecha)
+                return fechaB - fechaA;
+            });
+        default:
+            break;
+    }
+    generaVistaOperaciones(operaciones_filtradas);
+}
+
+const formatearFecha = (fechaIngresada) => {
+    console.log("get day:",fechaIngresada.getDay());
+    // return `${fechaIngresada.getDate() }/${fechaIngresada.getMonth() + 1}/${fechaIngresada.getFullYear()}`
+    return fechaIngresada.toLocaleDateString()
 }
 
 //---------------------------------------VARIABLES-----------------------------------------------//
@@ -250,8 +307,9 @@ let $filtar_categoria = $('#filtar-categoria');
 actualizaCategoriasFiltro(categorias);
 //filtros de operaciones//
 let $filtrar_tipo = $('#filtrar-tipo');
-let operaciones_gasto =  operacion_confirmada.filter((operacion) => operacion.tipo === 'gasto');
-let operaciones_ganancia =  operacion_confirmada.filter((operacion) => operacion.tipo === 'ganancia');
+let operaciones_gasto = operacion_confirmada.filter((operacion) => operacion.tipo === 'gasto');
+let operaciones_ganancia = operacion_confirmada.filter((operacion) => operacion.tipo === 'ganancia');
+let $filtrar_orden = $('#filtrar-orden');
 
 
 //------------------------------------------------EVENTOS-------------------------------------------//
@@ -302,11 +360,13 @@ btn_cancelar_operacion.addEventListener("click", () => {
 
 $btn_confirmar_operacion.addEventListener("click", () => {
     let ingresarOperacion = { ...operacion_a_confirmar };
+    let fechaIngresada = new Date($input_fecha_operacion.value) 
+    fechaIngresada.setUTCHours(24)  
     ingresarOperacion.descripcion = $input_operacion_descripcion.value;
     ingresarOperacion.monto = Number($input_operacion_monto.value);
     ingresarOperacion.tipo = $input_operacion_tipo.value;
     ingresarOperacion.categoria = $input_operacion_categoria.value;
-    ingresarOperacion.fecha = $input_fecha_operacion.value;
+    ingresarOperacion.fecha = formatearFecha(fechaIngresada);
     ingresarOperacion.id = self.crypto.randomUUID();
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
@@ -332,8 +392,14 @@ $filtrar_tipo.addEventListener('change', () => {
     //generaTotalesBalance(operaciones_filtradas); OPERACION FILTRADA NO ESTA DEFINIDO ?
 });
 
+// filtros: filtrar por categoria //
+
 $filtar_categoria.addEventListener('change', () => {
     filtrarOperacionesCategoria()
-    
-    console.log('funciona');
+})
+
+// filtros: ordenar por monto, fecha //
+
+$filtrar_orden.addEventListener('change', () => {
+    ordenaOperaciones()
 })

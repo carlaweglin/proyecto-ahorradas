@@ -125,11 +125,11 @@
               <div class="field">
                 <label for="filtrar-orden" class="has-text-weight-bold">Ordenar por</label>
                 <div class="select is-fullwidth">
-                  <select id="filtar-corden">
-                    <option value="filtrar-mas-reciente">Mas reciente</option>
-                    <option value="filtrar-menos-reciente">Menos reciente</option>
-                    <option value="filtrar-mayor-monto">Mayor monto</option>
-                    <option value="filtrar-menor-monto">Menor monto</option>
+                  <select id="filtrar-orden">
+                    <option value="mas-reciente">Mas reciente</option>
+                    <option value="menos-reciente">Menos reciente</option>
+                    <option value="mayor-monto">Mayor monto</option>
+                    <option value="menor-monto">Menor monto</option>
                   </select>
                 </div>
               </div>
@@ -199,7 +199,7 @@
             </div>
             <label for="input-operacion-monto" class="has-text-weight-bold is-size-5">Monto</label>
             <div class="control">
-              <input id="input-operacion-monto" class="input is-hovered mt-3 mb-5" type="text"
+              <input id="input-operacion-monto" class="input is-hovered mt-3 mb-5" type="number"
                 placeholder="Ingresa monto de la operacion" />
             </div>
             <label for="input-operacion-tipo" class="has-text-weight-bold is-size-5">Tipo</label>
@@ -266,16 +266,7 @@
             <label for="input-operacion-categoria" class="has-text-weight-bold is-size-5">Categoria</label>
             <div class="select is-fullwidth is-hovered mt-3 mb-5">
               <select id="input-operacion-editar-categoria">
-                <option value="comida">
-                  Comida
-                </option>
-                <option value="servicios">
-                  Servicios
-                </option>
-                <option value="
-                salidas">
-                  Salidas
-                </option>
+                
               </select>
             </div>
             <label for="filtrar-fecha-operacion" class="has-text-weight-bold">Desde</label>
