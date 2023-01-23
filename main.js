@@ -128,7 +128,30 @@ function eliminarCategoria(id) {
 }
 
 
+// editar categoria // 
 
+function editarCategoria(id) {
+    $seccion_editar_categoria.classList.remove('is-hidden');
+    vista_categorias.classList.add('is-hidden');
+    let categoriaPorEditar = categorias.find((categoria) => categoria.id === id);
+    $input_editar_categoria.value = categoriaPorEditar.nombre;
+    $btn_editar_categoria.addEventListener('click', () => {
+        let objCategoriaEditada = {
+            id: id,
+            nombre: $input_editar_categoria.value,
+        }
+        let indexCategoria = categorias.findIndex((categoria) => categoria.id === id);
+        categorias[indexCategoria] = objCategoriaEditada;
+        localStorage.setItem('categorias_confirmadas', JSON.stringify(categorias));    
+        $seccion_editar_categoria.classList.add('is-hidden');
+        vista_categorias.classList.remove('is-hidden');
+        crearVistaCategorias(categorias);
+        actualizaCategoriasNuevaOperacion(categorias);
+        actualizaCategoriasFiltro(categorias);
+        actualizaCategoriasEditarOperacion(categorias);
+    })
+    
+}
 
 
 // crea vista categorias // 
@@ -312,7 +335,10 @@ let operaciones_ganancia = operacion_confirmada.filter((operacion) => operacion.
 let $filtrar_orden = $('#filtrar-orden');
 let $input_agregar_categoria = $('#input-agregar-categoria');
 let $btn_agregar_categoria = $('#btn-agregar-categoria');
-
+let $seccion_editar_categoria = $('#editar-categoria');
+let $btn_editar_categoria = $('#btn-editar-categoria');
+let $btn_cancelar_editar_categoria = $('#btn-cancelar-editar-categoria');
+let $input_editar_categoria = $('#input-editar-categoria');
 //------------------------------------------------EVENTOS-------------------------------------------//
 
 // botones vistas//
@@ -408,11 +434,7 @@ $filtrar_orden.addEventListener('change', () => {
 // boton agregar categoria // 
 
 $btn_agregar_categoria.addEventListener('click', () => {
-    
     categorias.push(crearCategorias($input_agregar_categoria.value));
     localStorage.setItem('categorias_confirmadas', JSON.stringify(categorias));
     crearVistaCategorias(categorias);
-    actualizaCategoriasNuevaOperacion(categorias);
-    actualizaCategoriasFiltro(categorias);
-    actualizaCategoriasEditarOperacion(categorias);
 })
