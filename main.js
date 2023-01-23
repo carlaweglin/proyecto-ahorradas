@@ -115,7 +115,10 @@ const inicializarCategorias = () => {
     return categoriasAux
 
 }
-inicializarCategorias();
+if (localStorage.getItem('categorias_confirmadas') === undefined){
+    inicializarCategorias();
+}
+
 
 
 // eliminar categoria //
