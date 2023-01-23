@@ -127,7 +127,7 @@ function eliminarCategoria(id) {
     crearVistaCategorias(categorias);
 }
 
-// editar categoria // ---------- hacer ---------------
+
 
 
 
@@ -310,7 +310,8 @@ let $filtrar_tipo = $('#filtrar-tipo');
 let operaciones_gasto = operacion_confirmada.filter((operacion) => operacion.tipo === 'gasto');
 let operaciones_ganancia = operacion_confirmada.filter((operacion) => operacion.tipo === 'ganancia');
 let $filtrar_orden = $('#filtrar-orden');
-
+let $input_agregar_categoria = $('#input-agregar-categoria');
+let $btn_agregar_categoria = $('#btn-agregar-categoria');
 
 //------------------------------------------------EVENTOS-------------------------------------------//
 
@@ -402,4 +403,16 @@ $filtar_categoria.addEventListener('change', () => {
 
 $filtrar_orden.addEventListener('change', () => {
     ordenaOperaciones()
+})
+
+// boton agregar categoria // 
+
+$btn_agregar_categoria.addEventListener('click', () => {
+    
+    categorias.push(crearCategorias($input_agregar_categoria.value));
+    localStorage.setItem('categorias_confirmadas', JSON.stringify(categorias));
+    crearVistaCategorias(categorias);
+    actualizaCategoriasNuevaOperacion(categorias);
+    actualizaCategoriasFiltro(categorias);
+    actualizaCategoriasEditarOperacion(categorias);
 })
