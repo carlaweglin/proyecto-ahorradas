@@ -6,7 +6,8 @@ const $$ = (selector) => document.querySelectorAll(selector);
 
 function eliminarOperacion(id) {
     let operacionConfirmadaAux = operacion_confirmada.filter((operacion) => operacion.id !== id)
-    let operacionFiltradaAux = operaciones_filtradas.filter((operacion) => operacion.id !== id)
+    let operacionFiltradaAux
+    operacionFiltradaAux !== undefined && (operacionFiltradaAux = operaciones_filtradas.filter((operacion) => operacion.id !== id))
     operacion_confirmada = operacionConfirmadaAux;
     operaciones_filtradas = operacionFiltradaAux
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
