@@ -209,9 +209,10 @@ const actualizaCategoriasEditarOperacion = () => {
 
 // filtra por tipo // 
 let operaciones_filtradas;
+localStorage.setItem('operaciones_filtradas',JSON.stringify([]));
 let operaciones_sin_filtrar = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
 const filtrarOperacionesTipo = () => {
-
+    debugger
     if ($filtrar_tipo.value === 'gasto' || $filtrar_tipo.value === 'ganancia') {
         operaciones_filtradas = operaciones_sin_filtrar.filter((operacion) => operacion.tipo === $filtrar_tipo.value)
     }
@@ -220,20 +221,30 @@ const filtrarOperacionesTipo = () => {
     }
     localStorage.setItem('operaciones_filtradas', JSON.stringify(operaciones_filtradas));
     generaVistaOperaciones(operaciones_filtradas)
+    generaTotalesBalance(operaciones_filtradas)
 
 }
 
 //filtra por categoria // 
 
 const filtrarOperacionesCategoria = () => {
-    operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
-    operacion_confirmada.forEach(operacion => {
-        if ($filtar_categoria.value === operacion.categoria) {
-            operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.categoria === $filtar_categoria.value)
-        }
-
-
-    })
+    let aux
+    if(operaciones_filtradas !== undefined) {
+        aux = JSON.parse(localStorage.getItem('operaciones_filtradas'))
+    }
+    if (aux === undefined){
+        operaciones_filtradas = operacion_confirmada;
+    }
+    else {
+        operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
+    }
+    if ($filtar_categoria.value === "todas"){
+        operaciones_filtradas = operacion_confirmada;
+    }
+    else {
+        operaciones_filtradas = operacion_confirmada.filter((operacion) => operacion.categoria === $filtar_categoria.value)
+    }
+    localStorage.setItem('operaciones_filtradas',JSON.stringify(operaciones_filtradas))
     generaVistaOperaciones(operaciones_filtradas);
     generaTotalesBalance(operaciones_filtradas);
 
@@ -241,7 +252,17 @@ const filtrarOperacionesCategoria = () => {
 }
 
 const ordenaOperaciones = () => {
-    operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
+
+    let aux
+    if(operaciones_filtradas !== undefined) {
+        aux = JSON.parse(localStorage.getItem('operaciones_filtradas'))
+    }
+    if (aux === undefined){
+        operaciones_filtradas = operacion_confirmada;
+    }
+    else {
+        operaciones_filtradas = JSON.parse(localStorage.getItem('operaciones_filtradas'));
+    }
     switch ($filtrar_orden.value) {
         case "menor-monto":
             operaciones_filtradas.sort(function (a, b) {
@@ -274,13 +295,29 @@ const ordenaOperaciones = () => {
         default:
             break;
     }
+    localStorage.setItem('operaciones_filtradas',JSON.stringify(operaciones_filtradas))
     generaVistaOperaciones(operaciones_filtradas);
 }
 
 const formatearFecha = (fechaIngresada) => {
-    console.log("get day:",fechaIngresada.getDay());
-    // return `${fechaIngresada.getDate() }/${fechaIngresada.getMonth() + 1}/${fechaIngresada.getFullYear()}`
     return fechaIngresada.toLocaleDateString()
+}
+
+const filtrarFechaDesde = (fechaIngresada) => {
+    let ArrayAux = []
+    let fechaAux = formatearFecha(fechaIngresada)
+    operacion_confirmada.forEach((operacion) => {
+        let fecha1 = new Date(operacion.fecha)
+        let fecha2 = new Date(fechaAux)
+        debugger
+         if (fecha1 >= fecha2){
+            ArrayAux.push(operacion)
+         }
+    })
+    operaciones_filtradas = ArrayAux
+    localStorage.setItem('operaciones_filtradas',JSON.stringify(operaciones_filtradas))
+    generaTotalesBalance(operaciones_filtradas)
+    generaVistaOperaciones(operaciones_filtradas)
 }
 
 //---------------------------------------VARIABLES-----------------------------------------------//
@@ -343,6 +380,7 @@ let $seccion_editar_categoria = $('#editar-categoria');
 let $btn_editar_categoria = $('#btn-editar-categoria');
 let $btn_cancelar_editar_categoria = $('#btn-cancelar-editar-categoria');
 let $input_editar_categoria = $('#input-editar-categoria');
+let $filtrar_fecha = $('#filtrar-fecha')
 //------------------------------------------------EVENTOS-------------------------------------------//
 
 // botones vistas//
@@ -442,3 +480,18 @@ $btn_agregar_categoria.addEventListener('click', () => {
     localStorage.setItem('categorias_confirmadas', JSON.stringify(categorias));
     crearVistaCategorias(categorias);
 })
+
+// boton para cancelar edicion de categoria //
+
+$btn_cancelar_editar_categoria.addEventListener('click', () => {
+    $seccion_editar_categoria.classList.add('is-hidden');
+    vista_categorias.classList.remove('is-hidden');
+})
+
+//filtrar fecha
+
+$filtrar_fecha.addEventListener('change',() =>{
+    let fechaFormateada = new Date($filtrar_fecha.value)
+    fechaFormateada.setUTCHours(24) 
+    filtrarFechaDesde(fechaFormateada);
+} )
