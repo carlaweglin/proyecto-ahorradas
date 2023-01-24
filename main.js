@@ -119,7 +119,7 @@ const inicializarCategorias = () => {
     return categoriasAux
 
 }
-if (localStorage.getItem('categorias_confirmadas') === undefined){
+if (localStorage.getItem('categorias_confirmadas') === null){
     inicializarCategorias();
 }
 
@@ -213,9 +213,8 @@ const actualizaCategoriasEditarOperacion = () => {
 // filtra por tipo // 
 let operaciones_filtradas;
 localStorage.setItem('operaciones_filtradas',JSON.stringify([]));
-let operaciones_sin_filtrar = JSON.parse(localStorage.getItem('operaciones_confirmadas'));
+let operaciones_sin_filtrar = JSON.parse(localStorage.getItem('operaciones_confirmadas'))
 const filtrarOperacionesTipo = () => {
-    debugger
     if ($filtrar_tipo.value === 'gasto' || $filtrar_tipo.value === 'ganancia') {
         operaciones_filtradas = operaciones_sin_filtrar.filter((operacion) => operacion.tipo === $filtrar_tipo.value)
     }
@@ -289,12 +288,14 @@ const ordenaOperaciones = () => {
                 const fechaB = new Date(b.fecha)
                 return fechaA - fechaB;
             });
-        case "mas-reciente":
+            break;
+        case "menos-reciente":
             operaciones_filtradas.sort(function (a, b) {
                 const fechaA = new Date(a.fecha)
                 const fechaB = new Date(b.fecha)
                 return fechaB - fechaA;
             });
+            break;
         default:
             break;
     }
@@ -442,7 +443,7 @@ $btn_confirmar_operacion.addEventListener("click", () => {
     ingresarOperacion.id = self.crypto.randomUUID();
     operacion_confirmada.push(ingresarOperacion);
     localStorage.setItem('operaciones_confirmadas', JSON.stringify(operacion_confirmada));
-
+    operaciones_sin_filtrar = operacion_confirmada
     generaVistaOperaciones(operacion_confirmada);
     generaTotalesBalance(operacion_confirmada);
 });
