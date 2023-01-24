@@ -33,13 +33,16 @@ function editarOperacion(id) {
     $input_operacion_editar_tipo.value = operacionParaEditar.tipo;
     $input_operacion_editar_monto.value = operacionParaEditar.monto;
     $input_fecha_editar_operacion.value = operacionParaEditar.fecha;
+
     $btn_editar_operacion.addEventListener("click", () => {
+        let fechaFormateada = new Date($input_fecha_editar_operacion.value)
+        fechaFormateada.setUTCHours(24)
         let nuevoObjeto = {
             descripcion: $input_operacion_editar_descripcion.value,
             monto: Number($input_operacion_editar_monto.value),
             tipo: $input_operacion_editar_tipo.value,
             categoria: $input_operacion_editar_categoria.value,
-            fecha: $input_fecha_editar_operacion.value,
+            fecha: formatearFecha(fechaFormateada),
             id: id
 
         }
